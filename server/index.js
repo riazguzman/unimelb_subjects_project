@@ -36,7 +36,7 @@ app.get("/api/getSubjectsFilter", async (req, res) => {
     const { filter } = req.body;
     console.log(filter);
     const subjects = await pool.query(
-      "SELECT * FROM subjects WHERE subjects.name LIKE '%' || $1 || '%';",
+      "SELECT * FROM subjects WHERE LOWER(subjects.name) LIKE '%' || LOWER($1) || '%';",
       [filter]
     );
     res.json(subjects.rows);

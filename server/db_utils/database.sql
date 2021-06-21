@@ -9,12 +9,6 @@ CREATE TABLE subjects(
   field VARCHAR(255)
 );
 
-INSERT INTO subjects (name, code, level, field) VALUES ($1, $2, $3, $4) RETURNING *;
+INSERT INTO subjects (name, code, level, field) VALUES ($1, $2, $3, $4) RETURNING *; /* Insert subject into databse */
 
-SELECT * FROM subjects WHERE name LIKE `%movie%`;
-
-SELECT *
-FROM
-   Book
-WHERE
-   name LIKE 'Lear%';
+SELECT * FROM subjects WHERE subjects.name LIKE '%' || $1 || '%'; /* Filter based on substring match */
