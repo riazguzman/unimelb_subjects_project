@@ -5,7 +5,7 @@ const { JSDOM } = jsdom;
 const fs = require("fs");
 const pool = require("../db_utils/db");
 
-const getSubjectName = async (page, index) => {
+const getSubjectName = async (page) => {
   const url = `https://handbook.unimelb.edu.au/search?page=${page}&types%5B%5D=subject&year=2020`;
   const dom = await JSDOM.fromURL(url);
   const document = dom.window.document;
@@ -21,8 +21,9 @@ const getSubjectName = async (page, index) => {
 };
 
 const SubjectScrapper = async () => {
-  for (let index = 1; index <= 313; index++) {
-    await getSubjectName(index, subjectList.length);
+  for (let index = 1; index <= 317; index++) {
+    console.log(index);
+    await getSubjectName(index);
   }
   return;
 };

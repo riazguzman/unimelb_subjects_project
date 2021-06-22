@@ -2,11 +2,43 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styled from "@emotion/styled";
 
+import ErrorContainer from "./ErrorContainer";
+
+// Styling component container
+const ElectivesContainer = styled.div`
+  ${({ theme }) => `
+    height: 90vh;
+    overflow-y: auto;
+    width: 20%;
+    margin-right: 5px;
+
+
+    ::-webkit-scrollbar {
+      width: 3px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      box-shadow: inset 0 0 30px white;
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background:#C0C0C0;
+      border-radius: 10px;
+    }
+
+      
+  `}
+`;
+
 const Landing = () => {
   const [form, setForm] = useState("");
   const [filteredList, setFilteredList] = useState([]);
-  const [selectedSubjects, setSelectedSubjects] = useState([]);
+  const [scienceElective, setScienceElective] = useState([]);
   const [selectedBreadths, setSelectedBreadths] = useState([]);
+  const [scienceOrBreadth, setScienceOrBreadth] = useState([]);
+  const [coreSubjects, setCoreSubjects] = useState([]);
 
   const OnChange = (e) => {
     setForm(e.target.value);
@@ -27,10 +59,13 @@ const Landing = () => {
     const target = e.target.getAttribute("class");
     const id = e.dataTransfer.getData("id");
     console.log(id);
-    if (target == "SelectedSubjects") {
-      setSelectedSubjects([...selectedSubjects, filteredList[id]]);
+    console.log("here");
+    if (target == "ScienceElective") {
+      setScienceElective([...scienceElective, filteredList[id]]);
     } else if (target == "BreadthSubjects") {
       setSelectedBreadths([...selectedBreadths, filteredList[id]]);
+    } else if (target == "ScienceOrBreadth") {
+      setScienceOrBreadth([...scienceOrBreadth, filteredList[id]]);
     }
   };
 
@@ -50,9 +85,13 @@ const Landing = () => {
   return (
     <div>
       <input type="text" onChange={OnChange} />
-      <div style={{ display: "flex" }}>
-        <div>
+      <div style={{ display: "flex" }}></div>
+      <div style={{ marginTop: "10px", display: "flex" }}>
+        <ElectivesContainer>
           {filteredList.map((val, i) => {
+            if (i > 50) {
+              filteredList.length = 51;
+            }
             return (
               <div
                 onDragStart={(e) => {
@@ -60,67 +99,136 @@ const Landing = () => {
                 }}
                 draggable
                 style={{
-                  height: "50px",
                   border: "1px solid black",
                   cursor: "pointer",
+                  marginBottom: "10px",
+                  marginRight: "5px",
+                  padding: "5px",
+                  fontSize: "12px",
                 }}
                 id={i}
               >
-                {val.name}
+                <p style={{ fontWeight: "bold" }}>{val.name}</p>
+                <p>level: {val.level}</p>
+                <p>field: {val.field}</p>
               </div>
             );
           })}
+        </ElectivesContainer>
+        <div style={{ width: "80%", display: "flex" }}>
+          <div
+            style={{
+              height: "90vh",
+              overflowY: "auto",
+              width: "33%",
+              padding: "10px",
+              marginRight: "10px",
+            }}
+            className="ScienceElective"
+            onDragOver={OnDragOver}
+            onDrop={(e) => {
+              OnDragDrop(e);
+            }}
+          >
+            <div>Electives</div>
+            {scienceElective.map((val, i) => {
+              return (
+                <div
+                  className="ScienceElective"
+                  style={{
+                    border: "1px solid black",
+                    marginBottom: "10px",
+
+                    padding: "5px",
+                    fontSize: "12px",
+                  }}
+                  id={i}
+                >
+                  <p style={{ fontWeight: "bold" }}>{val.name}</p>
+                  <p>level: {val.level}</p>
+                  <p>field: {val.field}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div
+            style={{
+              height: "90vh",
+              overflowY: "auto",
+              width: "33%",
+              border: "1px solid black",
+              padding: "10px",
+              marginRight: "10px",
+            }}
+            className="BreadthSubjects"
+            onDragOver={OnDragOver}
+            onDrop={(e) => {
+              OnDragDrop(e);
+            }}
+          >
+            <div>Breadths</div>
+            {selectedBreadths.map((val, i) => {
+              {
+                console.log(val);
+              }
+              return (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    marginBottom: "10px",
+                    marginRight: "10px",
+                    padding: "5px",
+                    fontSize: "12px",
+                  }}
+                  id={i}
+                >
+                  <p style={{ fontWeight: "bold" }}>{val.name}</p>
+                  <p>level: {val.level}</p>
+                  <p>field: {val.field}</p>
+                </div>
+              );
+            })}
+          </div>
+          <div
+            style={{
+              height: "90vh",
+              overflowY: "auto",
+              width: "33%",
+              border: "1px solid black",
+              padding: "10px",
+              marginRight: "10px",
+            }}
+            className="ScienceOrBreadth"
+            onDragOver={OnDragOver}
+            onDrop={(e) => {
+              OnDragDrop(e);
+            }}
+          >
+            <div>Breadth or Science Electives</div>
+            {scienceOrBreadth.map((val, i) => {
+              {
+                console.log(val);
+              }
+              return (
+                <div
+                  style={{
+                    border: "1px solid black",
+                    marginBottom: "10px",
+                    marginRight: "10px",
+                    padding: "5px",
+                    fontSize: "12px",
+                  }}
+                  id={i}
+                >
+                  <p style={{ fontWeight: "bold" }}>{val.name}</p>
+                  <p>level: {val.level}</p>
+                  <p>field: {val.field}</p>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div
-          style={{ height: "400px", width: "200px" }}
-          className="SelectedSubjects"
-          onDragOver={OnDragOver}
-          onDrop={(e) => {
-            OnDragDrop(e);
-          }}
-        >
-          {selectedSubjects.map((val, i) => {
-            {
-              console.log(val);
-            }
-            return (
-              <div
-                style={{
-                  height: "50px",
-                  border: "1px solid black",
-                }}
-                id={i}
-              >
-                {val.name}
-              </div>
-            );
-          })}
-        </div>
-        <div
-          style={{ height: "400px", width: "200px" }}
-          className="BreadthSubjects"
-          onDragOver={OnDragOver}
-          onDrop={(e) => {
-            OnDragDrop(e);
-          }}
-        >
-          {selectedBreadths.map((val, i) => {
-            {
-              console.log(val);
-            }
-            return (
-              <div
-                style={{
-                  height: "50px",
-                  border: "1px solid black",
-                }}
-                id={i}
-              >
-                {val.name}
-              </div>
-            );
-          })}
-        </div>
+        <ErrorContainer subjects={scienceElective} breadth={selectedBreadths} />
       </div>
     </div>
   );
