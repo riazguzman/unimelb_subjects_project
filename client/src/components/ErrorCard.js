@@ -14,8 +14,8 @@ const ErrorCard = ({ title, body }) => {
         background: "#FAA8A8",
       }}
     >
-      <p style={{ margin: 0 }}>{title}</p>
-      <p style={{ margin: 0 }}>{body}</p>
+      <h2 style={{ margin: 0, fontSize: "15px" }}>{title}</h2>
+      <div style={{ margin: 0 }}>{body}</div>
     </div>
   );
 };

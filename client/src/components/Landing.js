@@ -11,20 +11,19 @@ const ElectivesContainer = styled.div`
     height: 80vh;
     overflow-y: auto;
     width: 90%;
-    margin-right: 20px;
     margin-top: 10px;
-    background-color: #97A3D1;
+    background-color: #F8F8F8;
     background-opacity: 20%;
     border-radius: 5px;
     border: 1px solid black;
 
     ::-webkit-scrollbar {
-      width: 3px;
+      width: 4px;
       height: 4px;
     }
 
     ::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 30px #97A3D1;
+      box-shadow: inset 0 0 30px white;
       border-radius: 10px;
     }
 
@@ -42,18 +41,18 @@ const FilterContainer = styled.div`
   overflow-y: auto;
   width: 90%;
   padding: 10px;
-  background-color: #97a3d1;
+  background-color: #f8f8f8;
   border-radius: 5px;
   border: 1px solid black;
   margin-top: 10px;
 
   ::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
     height: 4px;
   }
 
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 30px #97a3d1;
+    box-shadow: inset 0 0 30px white;
     border-radius: 10px;
   }
 
@@ -84,6 +83,22 @@ const Landing = () => {
     console.log(id);
     e.dataTransfer.setData("id", id);
     console.log(e.dataTransfer.getData("id"));
+  };
+
+  const OnClickDelete = (id, type) => {
+    let newArray = [];
+    if (type == "ScienceElective") {
+      console.log([...scienceElective]);
+      newArray = [...scienceElective].splice(id, 1);
+      setScienceElective(newArray);
+      console.log(newArray);
+    } else if (type == "BreadthSubjects") {
+      setSelectedBreadths([...selectedBreadths].splice(id, 1));
+    } else if (type == "ScienceOrBreadth") {
+      setScienceOrBreadth([...scienceOrBreadth].splice(id, 1));
+    } else if (type == "CoreSubjects") {
+      setCoreSubjects([...coreSubjects].splice(id, 1));
+    }
   };
 
   const OnDragDrop = (e) => {
@@ -150,9 +165,9 @@ const Landing = () => {
                   }}
                   id={i}
                 >
-                  <p style={{ fontWeight: "bold" }}>{val.name}</p>
-                  <p>level: {val.level}</p>
-                  <p>field: {val.field}</p>
+                  <div style={{ fontWeight: "bold" }}>{val.name}</div>
+                  <div>level: {val.level}</div>
+                  <div>field: {val.field}</div>
                 </div>
               );
             })}
@@ -169,7 +184,19 @@ const Landing = () => {
               }}
             >
               {scienceElective.length == 0 && (
-                <div>Drag and drop science electives here</div>
+                <div
+                  name="ScienceElective"
+                  style={{
+                    border: "2px dashed black",
+                    fontSize: "11px",
+                    boxSizing: "border-box",
+                    height: "100%",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  Drag and drop science electives here
+                </div>
               )}
               {scienceElective.map((val, i) => {
                 return (
@@ -185,11 +212,25 @@ const Landing = () => {
                     }}
                     id={i}
                   >
-                    <p name="ScienceElective" style={{ fontWeight: "bold" }}>
+                    <div name="ScienceElective" style={{ fontWeight: "bold" }}>
                       {val.name}
-                    </p>
-                    <p name="ScienceElective">level: {val.level}</p>
-                    <p name="ScienceElective">field: {val.field}</p>
+                    </div>
+                    <div name="ScienceElective">level: {val.level}</div>
+                    <div name="ScienceElective">field: {val.field}</div>
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        borderRadius: "3px",
+                        textAlign: "center",
+                        width: "30%",
+                        marginLeft: "70%",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => OnClickDelete(i + 1, "ScienceElective")}
+                    >
+                      delete
+                    </div>
                   </div>
                 );
               })}
@@ -205,7 +246,19 @@ const Landing = () => {
               }}
             >
               {selectedBreadths.length == 0 && (
-                <div>Drag and drop breadth subjects here</div>
+                <div
+                  name="BreadthSubjects"
+                  style={{
+                    border: "2px dashed black",
+                    fontSize: "11px",
+                    boxSizing: "border-box",
+                    height: "100%",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  Drag and drop breadth subjects here
+                </div>
               )}
               {selectedBreadths.map((val, i) => {
                 return (
@@ -221,9 +274,25 @@ const Landing = () => {
                     }}
                     id={i}
                   >
-                    <p style={{ fontWeight: "bold" }}>{val.name}</p>
-                    <p>level: {val.level}</p>
-                    <p>field: {val.field}</p>
+                    <div name="BreadthSubjects" style={{ fontWeight: "bold" }}>
+                      {val.name}
+                    </div>
+                    <div name="BreadthSubjects">level: {val.level}</div>
+                    <div name="BreadthSubjects">field: {val.field}</div>
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        borderRadius: "3px",
+                        textAlign: "center",
+                        width: "30%",
+                        marginLeft: "70%",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => OnClickDelete(i + 1, "BreadthSubjects")}
+                    >
+                      delete
+                    </div>
                   </div>
                 );
               })}
@@ -240,7 +309,19 @@ const Landing = () => {
               }}
             >
               {scienceOrBreadth.length == 0 && (
-                <div>Drag and drop breadth or science electives here</div>
+                <div
+                  name="ScienceOrBreadth"
+                  style={{
+                    border: "2px dashed black",
+                    fontSize: "11px",
+                    boxSizing: "border-box",
+                    height: "100%",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  Drag and drop breadth or science electives here
+                </div>
               )}
               {scienceOrBreadth.map((val, i) => {
                 return (
@@ -256,11 +337,25 @@ const Landing = () => {
                     }}
                     id={i}
                   >
-                    <p name="ScienceOrBreadth" style={{ fontWeight: "bold" }}>
+                    <div name="ScienceOrBreadth" style={{ fontWeight: "bold" }}>
                       {val.name}
-                    </p>
-                    <p name="ScienceOrBreadth">level: {val.level}</p>
-                    <p name="ScienceOrBreadth">field: {val.field}</p>
+                    </div>
+                    <div name="ScienceOrBreadth">level: {val.level}</div>
+                    <div name="ScienceOrBreadth">field: {val.field}</div>
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        borderRadius: "3px",
+                        textAlign: "center",
+                        width: "30%",
+                        marginLeft: "70%",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => OnClickDelete(i + 1, "ScienceOrBreadth")}
+                    >
+                      delete
+                    </div>
                   </div>
                 );
               })}
@@ -275,7 +370,19 @@ const Landing = () => {
               }}
             >
               {coreSubjects.length == 0 && (
-                <div>Drag and drop core subjects here</div>
+                <div
+                  name="CoreSubjects"
+                  style={{
+                    border: "2px dashed black",
+                    fontSize: "11px",
+                    boxSizing: "border-box",
+                    height: "100%",
+                    textAlign: "center",
+                    padding: "20px",
+                  }}
+                >
+                  Drag and drop core subjects here
+                </div>
               )}
               {coreSubjects.map((val, i) => {
                 return (
@@ -291,11 +398,25 @@ const Landing = () => {
                     }}
                     id={i}
                   >
-                    <p name="CoreSubjects" style={{ fontWeight: "bold" }}>
+                    <div name="CoreSubjects" style={{ fontWeight: "bold" }}>
                       {val.name}
-                    </p>
-                    <p name="CoreSubjects">level: {val.level}</p>
-                    <p name="CoreSubjects">field: {val.field}</p>
+                    </div>
+                    <div name="CoreSubjects">level: {val.level}</div>
+                    <div name="CoreSubjects">field: {val.field}</div>
+                    <div
+                      style={{
+                        backgroundColor: "white",
+                        border: "1px solid black",
+                        borderRadius: "3px",
+                        textAlign: "center",
+                        width: "30%",
+                        marginLeft: "70%",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => OnClickDelete(i + 1, "CoreSubjects")}
+                    >
+                      delete
+                    </div>
                   </div>
                 );
               })}

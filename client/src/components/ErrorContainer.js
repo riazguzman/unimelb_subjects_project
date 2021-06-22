@@ -47,76 +47,78 @@ export const ErrorContainer = ({ subjects, breadth }) => {
 
   return (
     <div style={{ width: "20%" }}>
-      Errors
-      {maxLevel1Error && (
-        <ErrorCard
-          title="Too many lvl 1 subjects"
-          body="Remove some lvl 1 subjects."
-        />
-      )}
-      {minLevel1Error && (
-        <ErrorCard
-          title="Not Enough lvl 1 subjects"
-          body="Enter some lvl 1 subjects."
-        />
-      )}
-      {maxLevel2Error && (
-        <ErrorCard
-          title="Too many lvl 2 subjects"
-          body="Remove some lvl 2 subjects."
-        />
-      )}
-      {minLevel2Error && (
-        <ErrorCard
-          title="Not Enough lvl 2 subjects"
-          body="Enter some lvl 2 subjects."
-        />
-      )}
-      {maxLevel3Error && (
-        <ErrorCard
-          title="Too many lvl 3 subjects"
-          body="Remove some lvl 3 subjects."
-        />
-      )}
-      {minLevel3Error && (
-        <ErrorCard
-          title="Not Enough lvl 3 subjects"
-          body="Enter some lvl 3 subjects."
-        />
-      )}
-      {singleDisciplineError !== "" && (
-        <ErrorCard
-          title="Too many lvl 1 science subjects from the same discipline"
-          body="Remove some subjects from single discipline."
-        />
-      )}
-      {maxLevel1and2Error && (
-        <ErrorCard
-          title="Too many lvl 1 and 2 subjects"
-          body="Remove some lvl 1 and 2 subjects."
-        />
-      )}
-      {maxLevel1and3Error && (
-        <ErrorCard
-          title="Too many lvl 1 and 3 subjects"
-          body="Remove some lvl 1 and 3 subjects."
-        />
-      )}
-      {maxLevel2and3Error && (
-        <ErrorCard
-          title="Too many lvl 2 and 3 subjects"
-          body="Remove some lvl 2 and 3 subjects."
-        />
-      )}
-      {fourBreadths && (
-        <ErrorCard title="Too many breadths" body="Remove breadths." />
-      )}
-      {minfourBreadths && (
-        <ErrorCard title="Not Enough breadths" body="Add some breadths." />
-      )}
-      {maxLevel1Breadth && (
-        <ErrorCard title="Too many lvl 1 breadths" body="Remove breadths." />
-      )}
+      <div style={{ marginBottom: "10px" }}>Errors</div>
+      <div>
+        {maxLevel1Error && (
+          <ErrorCard
+            title="Too many lvl 1 subjects"
+            body="Remove some lvl 1 subjects."
+          />
+        )}
+        {minLevel1Error && (
+          <ErrorCard
+            title="Not Enough lvl 1 subjects"
+            body="Enter some lvl 1 subjects."
+          />
+        )}
+        {maxLevel2Error && (
+          <ErrorCard
+            title="Too many lvl 2 subjects"
+            body="Remove some lvl 2 subjects."
+          />
+        )}
+        {minLevel2Error && (
+          <ErrorCard
+            title="Not Enough lvl 2 subjects"
+            body="Enter some lvl 2 subjects."
+          />
+        )}
+        {maxLevel3Error && (
+          <ErrorCard
+            title="Too many lvl 3 subjects"
+            body="Remove some lvl 3 subjects."
+          />
+        )}
+        {minLevel3Error && (
+          <ErrorCard
+            title="Not Enough lvl 3 subjects"
+            body="Enter some lvl 3 subjects."
+          />
+        )}
+        {singleDisciplineError !== "" && (
+          <ErrorCard
+            title="Too many lvl 1 science subjects from the same discipline"
+            body="Remove some subjects from single discipline."
+          />
+        )}
+        {maxLevel1and2Error && (
+          <ErrorCard
+            title="Too many lvl 1 and 2 subjects"
+            body="Remove some lvl 1 and 2 subjects."
+          />
+        )}
+        {maxLevel1and3Error && (
+          <ErrorCard
+            title="Too many lvl 1 and 3 subjects"
+            body="Remove some lvl 1 and 3 subjects."
+          />
+        )}
+        {maxLevel2and3Error && (
+          <ErrorCard
+            title="Too many lvl 2 and 3 subjects"
+            body="Remove some lvl 2 and 3 subjects."
+          />
+        )}
+        {fourBreadths && (
+          <ErrorCard title="Too many breadths" body="Remove breadths." />
+        )}
+        {minfourBreadths && (
+          <ErrorCard title="Not Enough breadths" body="Add some breadths." />
+        )}
+        {maxLevel1Breadth && (
+          <ErrorCard title="Too many lvl 1 breadths" body="Remove breadths." />
+        )}
+      </div>
     </div>
   );
 };
