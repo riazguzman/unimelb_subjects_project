@@ -8,12 +8,15 @@ import ErrorContainer from "./ErrorContainer";
 const ElectivesContainer = styled.div`
   ${({ theme }) => `
     padding: 10px;
-    height: 90vh;
+    height: 80vh;
     overflow-y: auto;
-    width: 20%;
+    width: 90%;
     margin-right: 20px;
-    margin-top: 20px;
-    background-color: #C0C0C0;
+    margin-top: 10px;
+    background-color: #97A3D1;
+    background-opacity: 20%;
+    border-radius: 5px;
+    border: 1px solid black;
 
     ::-webkit-scrollbar {
       width: 3px;
@@ -21,7 +24,7 @@ const ElectivesContainer = styled.div`
     }
 
     ::-webkit-scrollbar-track {
-      box-shadow: inset 0 0 30px #C0C0C0;
+      box-shadow: inset 0 0 30px #97A3D1;
       border-radius: 10px;
     }
 
@@ -35,11 +38,14 @@ const ElectivesContainer = styled.div`
 `;
 
 const FilterContainer = styled.div`
-  height: 90vh;
+  height: 80vh;
   overflow-y: auto;
   width: 90%;
   padding: 10px;
-  background-color: #c0c0c0;
+  background-color: #97a3d1;
+  border-radius: 5px;
+  border: 1px solid black;
+  margin-top: 10px;
 
   ::-webkit-scrollbar {
     width: 3px;
@@ -47,7 +53,7 @@ const FilterContainer = styled.div`
   }
 
   ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 30px #c0c0c0;
+    box-shadow: inset 0 0 30px #97a3d1;
     border-radius: 10px;
   }
 
@@ -91,6 +97,8 @@ const Landing = () => {
       setSelectedBreadths([...selectedBreadths, filteredList[id]]);
     } else if (target == "ScienceOrBreadth") {
       setScienceOrBreadth([...scienceOrBreadth, filteredList[id]]);
+    } else if (target == "CoreSubjects") {
+      setCoreSubjects([...coreSubjects, filteredList[id]]);
     }
   };
 
@@ -109,37 +117,48 @@ const Landing = () => {
 
   return (
     <div>
-      <input type="text" onChange={OnChange} />
-      <div style={{ display: "flex" }}></div>
       <div style={{ marginTop: "10px", display: "flex" }}>
-        <ElectivesContainer>
-          {filteredList.map((val, i) => {
-            if (i > 50) {
-              filteredList.length = 51;
-            }
-            return (
-              <div
-                onDragStart={(e) => {
-                  OnDragStart(e, i);
-                }}
-                draggable
-                style={{
-                  border: "1px solid black",
-                  cursor: "pointer",
-                  marginBottom: "10px",
-                  padding: "5px",
-                  fontSize: "12px",
-                }}
-                id={i}
-              >
-                <p style={{ fontWeight: "bold" }}>{val.name}</p>
-                <p>level: {val.level}</p>
-                <p>field: {val.field}</p>
-              </div>
-            );
-          })}
-        </ElectivesContainer>
-        <div style={{ width: "80%", display: "flex" }}>
+        <div style={{ width: "20%" }}>
+          <input
+            placeholder="Search for subject here!"
+            onChange={OnChange}
+            style={{
+              borderRadius: "5px",
+              border: "1px solid black",
+              width: "95%",
+            }}
+          />
+          <ElectivesContainer>
+            {filteredList.map((val, i) => {
+              if (i > 50) {
+                filteredList.length = 51;
+              }
+              return (
+                <div
+                  onDragStart={(e) => {
+                    OnDragStart(e, i);
+                  }}
+                  draggable
+                  style={{
+                    border: "1px solid black",
+                    cursor: "pointer",
+                    marginBottom: "10px",
+                    padding: "5px",
+                    fontSize: "12px",
+                    borderRadius: "5px",
+                    background: "#E7EAF7",
+                  }}
+                  id={i}
+                >
+                  <p style={{ fontWeight: "bold" }}>{val.name}</p>
+                  <p>level: {val.level}</p>
+                  <p>field: {val.field}</p>
+                </div>
+              );
+            })}
+          </ElectivesContainer>
+        </div>
+        <div style={{ width: "60%", display: "flex" }}>
           <div style={{ width: "33%" }}>
             <div>Electives</div>
             <FilterContainer
@@ -149,6 +168,9 @@ const Landing = () => {
                 OnDragDrop(e);
               }}
             >
+              {scienceElective.length == 0 && (
+                <div>Drag and drop science electives here</div>
+              )}
               {scienceElective.map((val, i) => {
                 return (
                   <div
@@ -158,6 +180,8 @@ const Landing = () => {
                       marginBottom: "10px",
                       padding: "5px",
                       fontSize: "12px",
+                      borderRadius: "5px",
+                      background: "#E7EAF7",
                     }}
                     id={i}
                   >
@@ -180,10 +204,10 @@ const Landing = () => {
                 OnDragDrop(e);
               }}
             >
+              {selectedBreadths.length == 0 && (
+                <div>Drag and drop breadth subjects here</div>
+              )}
               {selectedBreadths.map((val, i) => {
-                {
-                  console.log(val);
-                }
                 return (
                   <div
                     name="BreadthSubjects"
@@ -192,6 +216,8 @@ const Landing = () => {
                       marginBottom: "10px",
                       padding: "5px",
                       fontSize: "12px",
+                      borderRadius: "5px",
+                      background: "#E7EAF7",
                     }}
                     id={i}
                   >
@@ -206,16 +232,17 @@ const Landing = () => {
           <div style={{ width: "33%" }}>
             <div>Breadth or Science Electives</div>
             <FilterContainer
+              style={{ height: "35vh" }}
               name="ScienceOrBreadth"
               onDragOver={OnDragOver}
               onDrop={(e) => {
                 OnDragDrop(e);
               }}
             >
+              {scienceOrBreadth.length == 0 && (
+                <div>Drag and drop breadth or science electives here</div>
+              )}
               {scienceOrBreadth.map((val, i) => {
-                {
-                  console.log(val);
-                }
                 return (
                   <div
                     name="ScienceOrBreadth"
@@ -224,12 +251,51 @@ const Landing = () => {
                       marginBottom: "10px",
                       padding: "5px",
                       fontSize: "12px",
+                      borderRadius: "5px",
+                      background: "#E7EAF7",
                     }}
                     id={i}
                   >
-                    <p style={{ fontWeight: "bold" }}>{val.name}</p>
-                    <p>level: {val.level}</p>
-                    <p>field: {val.field}</p>
+                    <p name="ScienceOrBreadth" style={{ fontWeight: "bold" }}>
+                      {val.name}
+                    </p>
+                    <p name="ScienceOrBreadth">level: {val.level}</p>
+                    <p name="ScienceOrBreadth">field: {val.field}</p>
+                  </div>
+                );
+              })}
+            </FilterContainer>
+            <div style={{ marginTop: "20px" }}>Core Subjects</div>
+            <FilterContainer
+              style={{ height: "35vh" }}
+              name="CoreSubjects"
+              onDragOver={OnDragOver}
+              onDrop={(e) => {
+                OnDragDrop(e);
+              }}
+            >
+              {coreSubjects.length == 0 && (
+                <div>Drag and drop core subjects here</div>
+              )}
+              {coreSubjects.map((val, i) => {
+                return (
+                  <div
+                    name="CoreSubjects"
+                    style={{
+                      border: "1px solid black",
+                      marginBottom: "10px",
+                      padding: "5px",
+                      fontSize: "12px",
+                      borderRadius: "5px",
+                      background: "#E7EAF7",
+                    }}
+                    id={i}
+                  >
+                    <p name="CoreSubjects" style={{ fontWeight: "bold" }}>
+                      {val.name}
+                    </p>
+                    <p name="CoreSubjects">level: {val.level}</p>
+                    <p name="CoreSubjects">field: {val.field}</p>
                   </div>
                 );
               })}
