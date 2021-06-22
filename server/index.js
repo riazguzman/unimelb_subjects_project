@@ -31,9 +31,9 @@ app.get("/api/getAllSubjects", async (req, res) => {
 
 // filter subject
 
-app.get("/api/getSubjectsFilter", async (req, res) => {
+app.get("/api/getSubjectsFilter/:filter", async (req, res) => {
   try {
-    const { filter } = req.body;
+    const { filter } = req.params;
     console.log(filter);
     const subjects = await pool.query(
       "SELECT * FROM subjects WHERE LOWER(subjects.name) LIKE '%' || LOWER($1) || '%';",
