@@ -46,7 +46,8 @@ export const ErrorContainer = ({ subjects, breadth }) => {
   }, [breadth]);
 
   return (
-    <div>
+    <div style={{ width: "20%" }}>
+      Errors
       {maxLevel1Error && (
         <ErrorCard
           title="Too many lvl 1 subjects"

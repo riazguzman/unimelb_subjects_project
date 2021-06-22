@@ -11,7 +11,6 @@ const ErrorCard = ({ title, body }) => {
         padding: "10px",
         marginBottom: "10px",
         fontSize: "12px",
-        width: "100px",
       }}
     >
       <p style={{ margin: 0 }}>{title}</p>
