@@ -86,18 +86,24 @@ const Landing = () => {
   };
 
   const OnClickDelete = (id, type) => {
-    let newArray = [];
+    console.log(type);
     if (type == "ScienceElective") {
-      console.log([...scienceElective]);
-      newArray = [...scienceElective].splice(id, 1);
-      setScienceElective(newArray);
-      console.log(newArray);
+      let ScienceElective = [...scienceElective];
+      ScienceElective.splice(id, 1);
+      setScienceElective(ScienceElective);
     } else if (type == "BreadthSubjects") {
-      setSelectedBreadths([...selectedBreadths].splice(id, 1));
+      let BreadthSubjects = [...selectedBreadths];
+      BreadthSubjects.splice(id, 1);
+      setSelectedBreadths(BreadthSubjects);
     } else if (type == "ScienceOrBreadth") {
-      setScienceOrBreadth([...scienceOrBreadth].splice(id, 1));
+      let ScienceOrBreadth = [...scienceOrBreadth];
+      console.log(scienceOrBreadth);
+      ScienceOrBreadth.splice(id, 1);
+      setScienceOrBreadth(ScienceOrBreadth);
     } else if (type == "CoreSubjects") {
-      setCoreSubjects([...coreSubjects].splice(id, 1));
+      let CoreSubjects = [...coreSubjects];
+      CoreSubjects.splice(id, 1);
+      setCoreSubjects(CoreSubjects);
     }
   };
 
@@ -227,7 +233,7 @@ const Landing = () => {
                         marginLeft: "70%",
                         cursor: "pointer",
                       }}
-                      onClick={() => OnClickDelete(i + 1, "ScienceElective")}
+                      onClick={() => OnClickDelete(i, "ScienceElective")}
                     >
                       delete
                     </div>
@@ -352,7 +358,7 @@ const Landing = () => {
                         marginLeft: "70%",
                         cursor: "pointer",
                       }}
-                      onClick={() => OnClickDelete(i + 1, "ScienceOrBreadth")}
+                      onClick={() => OnClickDelete(i, "ScienceOrBreadth")}
                     >
                       delete
                     </div>
@@ -413,7 +419,7 @@ const Landing = () => {
                         marginLeft: "70%",
                         cursor: "pointer",
                       }}
-                      onClick={() => OnClickDelete(i + 1, "CoreSubjects")}
+                      onClick={() => OnClickDelete(i, "CoreSubjects")}
                     >
                       delete
                     </div>

@@ -1,5 +1,5 @@
 
-CREATE DATABASE unimelb_subjects;
+CREATE DATABASE unimelb;
 
 CREATE TABLE subjects(
   subject_id SERIAL PRIMARY KEY,
