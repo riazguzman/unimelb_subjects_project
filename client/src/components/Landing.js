@@ -124,15 +124,13 @@ const Landing = () => {
   };
 
   const getFilteredList = async (sub) => {
-    const res = await axios.get(
-      `http://localhost:5000/api/getSubjectsFilter/${sub}`
-    );
+    const res = await axios.get(`/api/getSubjectsFilter/${sub}`);
     setFilteredList(res.data);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
     if (form != "") {
-      await getFilteredList(form);
+      getFilteredList(form);
     }
   }, [form]);
 
