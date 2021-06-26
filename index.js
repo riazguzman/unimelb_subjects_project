@@ -20,7 +20,7 @@ console.log(path.join(__dirname, "client/build"));
 
 app.get("/utils/scrap", async (req, res) => {
   try {
-    SubjectScrapper();
+    await SubjectScrapper();
     res.json("scrapping started");
   } catch (err) {
     console.error(err);
